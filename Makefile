@@ -1,7 +1,10 @@
-.PHONY: app run install clean
+.PHONY: app run install dmg clean
 
 app:
 	bash scripts/build_app.sh
+
+dmg:
+	bash scripts/make_dmg.sh
 
 run: app
 	open build/Murmur.app

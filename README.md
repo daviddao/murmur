@@ -35,8 +35,22 @@ pasted right where your cursor is. That's the whole app.
 
 ## Install
 
-Requires macOS 14+ (Apple Silicon recommended) and the Xcode command line tools
-(`xcode-select --install`).
+Requires macOS 14+ (Apple Silicon recommended).
+
+### Option 1 — download
+
+Grab **[Murmur.dmg](https://github.com/daviddao/murmur/releases/latest/download/Murmur.dmg)**
+from the latest release and drag Murmur into Applications.
+
+> ⚠️ The build is not notarized (no Apple Developer subscription), so macOS warns
+> on first open. Go to **System Settings → Privacy & Security → Open Anyway**, or:
+> ```bash
+> xattr -d com.apple.quarantine /Applications/Murmur.app
+> ```
+
+### Option 2 — build from source
+
+Needs the Xcode command line tools (`xcode-select --install`).
 
 ```bash
 git clone https://github.com/daviddao/murmur.git
@@ -46,6 +60,7 @@ open /Applications/Murmur.app
 ```
 
 Prefer to try it first? `make run` launches it from the local `build/` folder.
+`make dmg` builds the drag-and-drop disk image.
 
 ## First run
 
