@@ -81,3 +81,9 @@ Packaging lives in `scripts/`: `Info.plist` (bundle template), `build_app.sh`,
    (generate one: `say -o /tmp/t.aiff "hello world" && afconvert -f WAVE -d LEI16@16000 -c 1 /tmp/t.aiff /tmp/test.wav`).
 3. Manual smoke test in a real text field (both engines if touched).
 4. Esc-cancel, short-tap ignore, and clipboard restore still work.
+5. Bump `CFBundleShortVersionString` in `scripts/Info.plist`, then
+   `make dmg` and `gh release create vX.Y.Z build/Murmur.dmg`.
+6. Update the Homebrew tap: bump `version` + `sha256`
+   (`shasum -a 256 build/Murmur.dmg`) in
+   [daviddao/homebrew-tap](https://github.com/daviddao/homebrew-tap)
+   `Casks/murmur.rb` and push.

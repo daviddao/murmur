@@ -37,18 +37,25 @@ pasted right where your cursor is. That's the whole app.
 
 Requires macOS 14+ (Apple Silicon recommended).
 
-### Option 1 — download
+### Option 1 — Homebrew
+
+```bash
+brew install --cask daviddao/tap/murmur
+```
+
+### Option 2 — download
 
 Grab **[Murmur.dmg](https://github.com/daviddao/murmur/releases/latest/download/Murmur.dmg)**
 from the latest release and drag Murmur into Applications.
 
 > ⚠️ The build is not notarized (no Apple Developer subscription), so macOS warns
-> on first open. Go to **System Settings → Privacy & Security → Open Anyway**, or:
+> on first open (Homebrew installs included). Go to
+> **System Settings → Privacy & Security → Open Anyway**, or:
 > ```bash
 > xattr -d com.apple.quarantine /Applications/Murmur.app
 > ```
 
-### Option 2 — build from source
+### Option 3 — build from source
 
 Needs the Xcode command line tools (`xcode-select --install`).
 
