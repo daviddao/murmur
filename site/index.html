@@ -218,6 +218,8 @@
   .terminal .p { color: #5da9ff; user-select: none; }
   .perm-note { font-size: 13.5px; color: var(--faint); text-align: center; margin-top: 18px; }
   .perm-note a { color: var(--muted); }
+  .dl-link { color: var(--text); font-weight: 600; }
+  .alt-head { font-size: 13.5px; color: var(--faint); text-align: center; margin-bottom: 14px; }
 
   footer { margin-top: 110px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
   .foot-inner {
@@ -259,10 +261,10 @@
       your cursor is. Transcribed entirely <em>on your Mac</em>.
     </p>
     <div class="cta">
-      <a class="btn primary" href="https://github.com/daviddao/murmur#install">Get Murmur</a>
+      <a class="btn primary" href="https://github.com/daviddao/murmur/releases/latest/download/Murmur.dmg">↓ Download Murmur</a>
       <a class="btn ghost" href="https://github.com/daviddao/murmur">View source ↗</a>
     </div>
-    <p class="meta-line">Free &amp; MIT licensed · macOS 14+ · no account, no subscription, no telemetry</p>
+    <p class="meta-line">Free &amp; MIT licensed · macOS 14+ · .dmg · 3 MB · no account, no subscription, no telemetry</p>
   </header>
 
   <div class="demo-wrap">
@@ -348,9 +350,19 @@
 
   <section id="install">
     <p class="kicker">Install</p>
-    <h2>From clone to dictating in a minute</h2>
-    <p class="section-sub">Requires macOS 14+ (Apple Silicon recommended) and the Xcode command line tools.</p>
+    <h2>Drag, drop, dictate</h2>
+    <p class="section-sub">
+      <a class="dl-link" href="https://github.com/daviddao/murmur/releases/latest/download/Murmur.dmg">Download Murmur.dmg</a>
+      and drag Murmur into Applications. Requires macOS 14+ (Apple Silicon recommended).
+    </p>
+    <p class="perm-note" style="max-width:560px;margin:18px auto 0">
+      Murmur is a free community build and isn't notarized by Apple, so macOS shows a warning on
+      first open — allow it under <b>System Settings → Privacy &amp; Security → Open Anyway</b>.
+      Then grant <b>Microphone</b> + <b>Accessibility</b> and let the Parakeet model download once (~470 MB, cached).
+      Full guide in the <a href="https://github.com/daviddao/murmur#first-run">README</a>.
+    </p>
     <div class="install-box">
+      <p class="alt-head">Rather build it yourself? It's ~1,500 lines of Swift you can audit in one sitting:</p>
       <div class="terminal">
         <div class="term-head">
           <i></i><i></i><i></i>
@@ -361,10 +373,6 @@
 <span class="p">$</span> make install   <span class="c"># builds Murmur.app → /Applications</span>
 <span class="p">$</span> open /Applications/Murmur.app</pre>
       </div>
-      <p class="perm-note">
-        First run: allow <b>Microphone</b> + <b>Accessibility</b>, let the Parakeet model download once (~470 MB, cached).
-        Full guide in the <a href="https://github.com/daviddao/murmur#first-run">README</a>.
-      </p>
     </div>
   </section>
 
