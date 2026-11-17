@@ -12,6 +12,8 @@ struct SettingsView: View {
     @AppStorage("elevenLabsModel") private var elevenLabsModel = "scribe_v2"
     @AppStorage("languageCode") private var languageCode = ""
     @AppStorage("playSounds") private var playSounds = true
+    @AppStorage("customVocabulary") private var customVocabulary = ""
+    @State private var vocabularyReload: Task<Void, Never>?
 
     @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
 
@@ -72,6 +74,19 @@ struct SettingsView: View {
             }
 
             Section {
+                TextEditor(text: $customVocabulary)
+                    .font(.system(.body, design: .monospaced))
+                    .frame(minHeight: 110)
+                    .onChange(of: customVocabulary) { _, _ in
+                        vocabularyChanged()
+                    }
+            } header: {
+                Text("Custom vocabulary")
+            } footer: {
+                Text("One name or term per line, e.g. Supportman. Add misheard versions after =, e.g. Supportman = support man, supper man. Parakeet only; the first term downloads a small extra model (~100 MB).")
+            }
+
+            Section {
                 SecureField("API key", text: $elevenLabsKey, prompt: Text("xi-…"))
                 Picker("Model", selection: $elevenLabsModel) {
                     Text("Scribe v2").tag("scribe_v2")
@@ -104,6 +119,16 @@ struct SettingsView: View {
         }
         .onReceive(permissionTimer) { _ in
             state.refreshPermissions()
+        }
+    }
+
+    /// Rebuilds the boosting session shortly after the user stops typing.
+    private func vocabularyChanged() {
+        vocabularyReload?.cancel()
+        vocabularyReload = Task {
+            try? await Task.sleep(for: .seconds(1))
+            guard !Task.isCancelled, engine == EngineKind.parakeet.rawValue else { return }
+            state.warmUpParakeet()
         }
     }
 

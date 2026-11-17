@@ -31,6 +31,8 @@ pasted right where your cursor is. That's the whole app.
 - ⌨️ **True push-to-talk** — hold right ⌘ (or right ⌥ / right ⌃). **Esc** cancels.
   Regular ⌘-shortcuts keep working, even ones that use the right ⌘ key.
 - 📋 **Polite pasting** — inserts via ⌘V and restores whatever was on your clipboard afterwards.
+- 🎯 **Custom vocabulary** — list names and jargon in Settings (one per line,
+  optional misheard forms after `=`) and Parakeet spells them your way.
 - 🌍 **25 languages** locally (Parakeet v3), or English-optimized (v2), or 90+ via ElevenLabs.
 
 ## Install
