@@ -5,7 +5,7 @@ let package = Package(
     name: "Murmur",
     platforms: [.macOS(.v14)],
     dependencies: [
-        .package(url: "https://github.com/FluidInference/FluidAudio.git", from: "0.9.0")
+        .package(url: "https://github.com/FluidInference/FluidAudio.git", from: "0.18.3")
     ],
     targets: [
         .executableTarget(
