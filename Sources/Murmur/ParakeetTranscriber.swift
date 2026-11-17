@@ -171,7 +171,9 @@ enum VocabularyList {
     /// The rescorer leaves words that already match a term apart from case
     /// ("supportman"), so restore the user's spelling for whole-word matches.
     static func applyCasing(_ text: String, entries: [Entry]) -> String {
-        entries.reduce(text) { result, entry in
+        // All-lowercase terms ("fork") carry no casing to restore, and forcing
+        // them would lowercase a capital at the start of a sentence.
+        entries.filter { $0.text != $0.text.lowercased() }.reduce(text) { result, entry in
             let pattern = "(?<![\\p{L}\\p{N}])" + NSRegularExpression.escapedPattern(for: entry.text) + "(?![\\p{L}\\p{N}])"
             guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
                 return result
