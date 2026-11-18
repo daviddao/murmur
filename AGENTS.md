@@ -44,10 +44,10 @@ Packaging lives in `scripts/`: `Info.plist` (bundle template), `build_app.sh`,
 
 ## Gotchas & invariants
 
-- **FluidAudio 0.9.x API**: `AsrModels.downloadAndLoad(version:)` →
+- **FluidAudio 0.18.x API**: `AsrModels.downloadAndLoad(version:)` →
   `AsrManager(config: .default)` → `loadModels(_:)` →
-  `transcribe(_, decoderState: &state)` with a **fresh `TdtDecoderState.make()`
-  per utterance**. Older docs mention `initialize(models:)` / `source:` params —
+  `transcribe(_, decoderState: &state)` with a **fresh
+  `TdtDecoderState.make(decoderLayers: await asr.decoderLayerCount)` per utterance**. Older docs mention `initialize(models:)` / `source:` params —
   those don't exist anymore. Check `.build/checkouts/FluidAudio` before changing.
 - **Audio is 16 kHz mono Float32 everywhere.** Never hand-decode audio bytes;
   go through `AVAudioConverter` (or FluidAudio's converter for files).
@@ -64,6 +64,15 @@ Packaging lives in `scripts/`: `Info.plist` (bundle template), `build_app.sh`,
   `MainActor.assumeIsolated` (safe: the tap runs on the main thread).
 - Language mode is Swift 5 (`swift-tools-version: 5.10`) on purpose — don't
   bump to 6 without fixing the resulting strict-concurrency errors.
+- **Custom vocabulary** (`VocabularyList` + `VocabularyBoostingSession` in
+  `ParakeetTranscriber.swift`): loads the ~100 MB `CtcModels(.ctc110m)` only
+  when the user lists terms. The rescorer is tuned stricter than FluidAudio's
+  defaults (min similarity 0.65, rescue floors 0.30/0.50) because a wrong
+  replacement is worse than a miss in dictation. Test with
+  `.build/release/Murmur transcribe t.wav -customVocabulary "$(printf 'Term\nOther = alias')"`.
+- **Building without Xcode**: Command Line Tools' newest SDK may lack the
+  SwiftUI macro plugin (`SwiftUIMacros.StateMacro could not be found`). Build
+  against an older SDK: `SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk make app`.
 - Keep dependencies to exactly one: FluidAudio. No analytics, no networking
   beyond the ElevenLabs call.
 

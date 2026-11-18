@@ -78,6 +78,12 @@ enum Defaults {
         store.string(forKey: "languageCode") ?? ""
     }
 
+    /// Custom vocabulary for Parakeet boosting: one term per line,
+    /// optional aliases after "=" (see `VocabularyList`). Empty = off.
+    static var customVocabulary: String {
+        store.string(forKey: "customVocabulary") ?? ""
+    }
+
     static var playSounds: Bool {
         store.object(forKey: "playSounds") as? Bool ?? true
     }
