@@ -73,6 +73,8 @@ struct SettingsView: View {
                 Text("Runs fully offline via Core ML (NVIDIA Parakeet TDT 0.6B). The first run downloads the model from Hugging Face and caches it.")
             }
 
+            SoundSettingsSection()
+
             Section {
                 TextEditor(text: $customVocabulary)
                     .font(.system(.body, design: .monospaced))
